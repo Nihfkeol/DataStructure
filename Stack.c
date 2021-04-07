@@ -10,6 +10,9 @@ typedef struct stacknode{
     DateType date;
     struct stacknode *next;
 } LinkStack;
+int main(){
+    return 0;
+}
 
 
 
