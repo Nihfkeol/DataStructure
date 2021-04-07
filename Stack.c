@@ -10,3 +10,15 @@ typedef struct stacknode{
     DateType date;
     struct stacknode *next;
 } LinkStack;
+typedef int DateType;
+
+typedef struct stacknode1{
+    DateType date;
+    struct stacknode *next;
+} LinkStack;
+typedef int DateType;
+
+typedef struct stacknode2{
+    DateType date;
+    struct stacknode *next;
+} LinkStack;
