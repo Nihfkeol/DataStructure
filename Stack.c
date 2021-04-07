@@ -34,20 +34,20 @@ LinkStack *Push(LinkStack *S, DataType x) {
 LinkStack *Pop(LinkStack *S, DataType *x) {
     LinkStack *p;
     if (EmptyStack(S)) {
-        printf("\tæ ˆç©ºï¼Œä¸èƒ½å‡ºæ ˆï¼");
+        printf("\tÕ»¿Õ£¬²»ÄÜ³öÕ»£¡");
         return NULL;
     } else {
         *x = S->data;
         p = S;
         S = S->next;
         free(p);
-        return s;
+        return S;
     }
 }
 
 int GetTop(LinkStack *S, DataType *x) {
     if (EmptyStack(S)) {
-        printf("æ ˆç©ºï¼");
+        printf("Õ»¿Õ£¡");
         return 0;
     } else {
         *x = S->data;
@@ -58,9 +58,9 @@ int GetTop(LinkStack *S, DataType *x) {
 void ShowStack(LinkStack *S) {
     LinkStack *p = S;
     if (p == NULL) {
-        printf("æ ˆç©ºï¼");
+        printf("Õ»¿Õ£¡");
     } else {
-        printf("ä»Žæ ˆé¡¶å…ƒç´ èµ·æ ˆä¸­å„å…ƒç´ ä¸ºï¼š");
+        printf("´ÓÕ»¶¥ÔªËØÆðÕ»ÖÐ¸÷ÔªËØÎª£º");
         while (p != NULL) {
             printf("%d ", p->data);
             p = p->next;
@@ -72,10 +72,10 @@ void D_B(LinkStack *S, DataType x) {
         S = Push(S, x % 2);
         x /= 2;
     }
-    printf("è½¬æ¢åŽäºŒè¿›åˆ¶ä¸ºï¼š");
+    printf("×ª»»ºó¶þ½øÖÆÎª£º");
     while (!EmptyStack(S)) {
         S = Pop(S, &x);
-        printf("%d", x)
+        printf("%d", x);
     }
 }
 
@@ -114,7 +114,7 @@ void trans(char *exp, char *postexp){
         break;
     case'*':
     case'/':
-        while(op.data[op.top]=='*'||op.top.data[op.top]=='/')
+        while(op.data[op.top]=='*'||op.data[op.top]=='/')
         {
          postexp[i++]=op.data[op.top];
          op.top--;
@@ -187,10 +187,10 @@ float compvalue(char *postexp){
                     st.top++;
                     st.data[st.top]=c;
                 } else
-                    printf("\n\té™¤é›¶é”™è¯¯ï¼\n");
+                    printf("\n\t³ýÁã´íÎó£¡\n");
                 break;
 
-            defaultï¼š
+            default:
                 d = 0;
                 while(*postexp >= '0' && *postexp <= '9'){
                     d = 10*d + *postexp - '0';
@@ -208,18 +208,18 @@ float compvalue(char *postexp){
 
 
 void MenuStack(){
-    printf("\n                      æ ˆå­ç³»ç»Ÿ");
+    printf("\n                      Õ»×ÓÏµÍ³");
     printf("\n =======================================================");
-    printf("\n |                1------åˆå§‹åŒ–æ ˆ");
-    printf("\n |                2------å…¥æ ˆæ“ä½œ");
-    printf("\n |                3------å‡ºæ ˆæ“ä½œ");
-    printf("\n |                4------æ±‚æ ˆé¡¶å…ƒç´ ");
-    printf("\n |                5------æ˜¾ç¤ºæ ˆä¸­å…ƒç´ ");
-    printf("\n |                6------åã€äºŒè¿›åˆ¶æ•°è½¬æ¢");
-    printf("\n |                7------è¡¨è¾¾å¼è½¬æ¢å¹¶æ±‚å€¼");
-    printf("\n |                0------è¿”å›ž");
+    printf("\n |                1------³õÊ¼»¯Õ»");
+    printf("\n |                2------ÈëÕ»²Ù×÷");
+    printf("\n |                3------³öÕ»²Ù×÷");
+    printf("\n |                4------ÇóÕ»¶¥ÔªËØ");
+    printf("\n |                5------ÏÔÊ¾Õ»ÖÐÔªËØ");
+    printf("\n |                6------Ê®¡¢¶þ½øÖÆÊý×ª»»");
+    printf("\n |                7------±í´ïÊ½×ª»»²¢ÇóÖµ");
+    printf("\n |                0------·µ»Ø");
     printf("\n =======================================================");
-    printf("\n è¯·è¾“å…¥èœå•å·ï¼ˆ0-7ï¼‰");
+    printf("\n ÇëÊäÈë²Ëµ¥ºÅ£¨0-7£©");
 }
 main(){
     int i,n,flag;
@@ -235,23 +235,23 @@ main(){
         switch (ch2) {
             case '1':
                 S = InitStack();
-                printf("æ ˆçš„åˆå§‹åŒ–å®Œæˆ");
+                printf("Õ»µÄ³õÊ¼»¯Íê³É");
                 break;
             case '2':
-                printf("è¯·è¾“å…¥è¦å…¥æ ˆçš„å…ƒç´ ä¸ªæ•°ï¼š");
+                printf("ÇëÊäÈëÒªÈëÕ»µÄÔªËØ¸öÊý£º");
                 scanf("%d", &n);
-                printf("è¯·è¾“å…¥%dä¸ªæ•´æ•°è¿›è¡Œå…¥æ ˆ", n);
+                printf("ÇëÊäÈë%d¸öÕûÊý½øÐÐÈëÕ»", n);
                 for (int i = 0; i < n; ++i) {
                     scanf("%d", &x);
                     S = Push(S, x);
                 }
-                printf("å…¥æ ˆæˆåŠŸ");
+                printf("ÈëÕ»³É¹¦");
                 break;
             case '3':
-                printf("è¯·è¾“å…¥è¦å‡ºæ ˆçš„å…ƒç´ ä¸ªæ•°ï¼š");
+                printf("ÇëÊäÈëÒª³öÕ»µÄÔªËØ¸öÊý£º");
                 scanf("%d", &n);
-                printf("å‡ºæ ˆçš„å…ƒç´ ä¸ºï¼š")
-                for (int i = 0; i < i; ++i) {
+                printf("³öÕ»µÄÔªËØÎª£º");
+                for(int i = 0; i < n; ++i) {
                     S = Pop(S, &x);
                     if (S != NULL) {
                         printf("%5d", x);
@@ -260,34 +260,34 @@ main(){
                 break;
             case '4':
                 if (flag = GetTop(S, &x));
-                printf("å½“å‰çš„æ ˆé¡¶å…ƒç´ ä¸ºï¼š%d", x);
+                printf("µ±Ç°µÄÕ»¶¥ÔªËØÎª£º%d", x);
                 break;
             case '5':
                 ShowStack(S);
                 break;
             case '6':
                 S = InitStack();
-                printf("è¯·è¾“å…¥åè¿›åˆ¶æ­£æ•´æ•°ï¼š");
+                printf("ÇëÊäÈëÊ®½øÖÆÕýÕûÊý£º");
                 scanf("%d", &x);
                 D_B(S, x);
                 break;
             case '7':
-                printf("è¯·è¾“å…¥ç®—æœ¯è¡¨è¾¾å¼ï¼ˆåªæœ‰+ã€-ã€*ã€/å››ç§è¿ç®—ç¬¦ï¼‰ï¼Œä»¥â€˜#â€™ç»“æŸï¼š");
+                printf("ÇëÊäÈëËãÊõ±í´ïÊ½£¨Ö»ÓÐ+¡¢-¡¢*¡¢/ËÄÖÖÔËËã·û£©£¬ÒÔ¡®#¡¯½áÊø£º");
                 scanf("%s", &exp);
                 trans(exp, postexp);
-                printf("åˆ™è¯¥è¡¨è¾¾å¼çš„ä¸­ç¼€è¡¨è¾¾å¼ä¸ºï¼š%s\n", exp);
-                printf("è½¬æ¢ä¹‹åŽçš„åŽç¼€è¡¨è¾¾å¼ä¸ºï¼ˆæ¯ä¸ªæ“ä½œæ•°ç”¨â€œ#â€åˆ†éš”ï¼‰ï¼š%s\n", postexp);
-                printf("è¡¨è¾¾å¼çš„å€¼ä¸º:%.2f\n", compvalue(postexp));
+                printf("Ôò¸Ã±í´ïÊ½µÄÖÐ×º±í´ïÊ½Îª£º%s\n", exp);
+                printf("×ª»»Ö®ºóµÄºó×º±í´ïÊ½Îª£¨Ã¿¸ö²Ù×÷ÊýÓÃ¡°#¡±·Ö¸ô£©£º%s\n", postexp);
+                printf("±í´ïÊ½µÄÖµÎª:%.2f\n", compvalue(postexp));
                 break;
             case '0':
                 ch1 = 'n';
                 break;
             default:
-                printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·è¾“å…¥0-5è¿›è¡Œé€‰æ‹©ï¼");
+                printf("ÊäÈëÓÐÎó£¬ÇëÊäÈë0-5½øÐÐÑ¡Ôñ£¡");
         }
         if (ch2 != '0')
         {
-            printf("\næŒ‰å›žè½¦é”®ç»§ç»­ï¼ŒæŒ‰ä»»æ„é”®è¿”å›žä¸»èœå•ï¼\n");
+            printf("\n°´»Ø³µ¼ü¼ÌÐø£¬°´ÈÎÒâ¼ü·µ»ØÖ÷²Ëµ¥£¡\n");
             a = getchar();
             if (a!='\xA'){
                 getchar();
