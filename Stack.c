@@ -1,6 +1,7 @@
 
 # include "stdio.h"
 # include "malloc.h"
+
 #define MAXSIZE 100
 typedef int DataType;
 typedef struct stacknode {
@@ -67,6 +68,7 @@ void ShowStack(LinkStack *S) {
         }
     }
 }
+
 void D_B(LinkStack *S, DataType x) {
     while (x) {
         S = Push(S, x % 2);
@@ -79,14 +81,14 @@ void D_B(LinkStack *S, DataType x) {
     }
 }
 
-void trans(char *exp, char *postexp){
+void trans(char *exp, char *postexp) {
     struct {
         char data[MAXSIZE];
         int top;
     } op;
     int i = 0;
-    op.top=-1;
-    while (*exp!='#'){
+    op.top = -1;
+    while (*exp != '#') {
         switch (*exp) {
             case '(':
                 op.top++;
@@ -94,106 +96,104 @@ void trans(char *exp, char *postexp){
                 exp++;
                 break;
             case ')':
-                while (op.data[op.top]!='('){
+                while (op.data[op.top] != '(') {
                     postexp[i++] = op.data[op.top];
-        op.top--;
-    }
-    op.top--;exp++;
-    break;
-    case '+':
-    case '-':
-        while(op.top!=-1&&op.data[op.top]!='(')
-        {
-            postexp[i++]=op.data[op.top];
+                    op.top--;
+                }
+                op.top--;
+                exp++;
+                break;
+            case '+':
+            case '-':
+                while (op.top != -1 && op.data[op.top] != '(') {
+                    postexp[i++] = op.data[op.top];
 
-            op.top--;
+                    op.top--;
+                }
+                op.top++;
+                op.data[op.top] = *exp;
+                exp++;
+                break;
+            case '*':
+            case '/':
+                while (op.data[op.top] == '*' || op.data[op.top] == '/') {
+                    postexp[i++] = op.data[op.top];
+                    op.top--;
+                }
+                op.top++;
+                op.data[op.top] = *exp;
+                exp++;
+                break;
+            case ' ':
+                break;
+            default:
+                while (*exp >= '0' && *exp <= '9') {
+                    postexp[i++] = *exp;
+                    exp++;
+                }
+                postexp[i++] = '#';
         }
-        op.top++;
-        op.data[op.top]=*exp;
-        exp++;
-        break;
-    case'*':
-    case'/':
-        while(op.data[op.top]=='*'||op.data[op.top]=='/')
-        {
-         postexp[i++]=op.data[op.top];
-         op.top--;
-        }
-        op.top++;
-        op.data[op.top]=*exp;
-        exp++;
-        break;
-    case' ':break;
-    default:
-        while(*exp>='0'&&*exp<='9')
-        {
-            postexp[i++]=*exp;
-            exp++;
-        }
-        postexp[i++]='#';
     }
-}
-    while(op.top!=-1)
-    {
-        postexp[i++]=op.data[op.top];
+    while (op.top != -1) {
+        postexp[i++] = op.data[op.top];
         op.top--;
     }
-    postexp[i]='\0';
+    postexp[i] = '\0';
 }
-float compvalue(char *postexp){
-    struct{
-     float data[MAXSIZE];
-     int top;
-    }st;
-    float a,b,c,d;
-    st.top=-1;
-    while (*postexp !='\0'){
+
+float compvalue(char *postexp) {
+    struct {
+        float data[MAXSIZE];
+        int top;
+    } st;
+    float a, b, c, d;
+    st.top = -1;
+    while (*postexp != '\0') {
         switch (*postexp) {
             case '+':
-                a=st.data[st.top];
+                a = st.data[st.top];
                 st.top--;
-                b=st.data[st.top];
+                b = st.data[st.top];
                 st.top--;
-                c=b+a;
+                c = b + a;
+                st.top++;
+                st.data[st.top] = c;
+                break;
+            case '-':
+                a = st.data[st.top];
+                st.top--;
+                b = st.data[st.top];
+                st.top--;
+                c = b - a;
                 st.top++;
                 st.data[st.top]=c;
                 break;
-            case '-':
-                a=st.data[st.top];
-                st.top--;
-                b=st.data[st.top];
-                st.top--;
-                c=b-a;
-                st.top++;
-                st.data[st.top] = c;
-                break;
             case '*':
-                a=st.data[st.top];
+                a = st.data[st.top];
                 st.top--;
-                b=st.data[st.top];
+                b = st.data[st.top];
                 st.top--;
-                c=b*a;
+                c = b * a;
                 st.top++;
-                st.data[st.top] = c;
+                st.data[st.top]=c;
                 break;
             case '/':
-                a=st.data[st.top];
+                a = st.data[st.top];
                 st.top--;
-                b=st.data[st.top];
+                b = st.data[st.top];
                 st.top--;
-                if (a!=0)
-                {
-                    c=b/a;
+                if (a != 0) {
+                    c = b / a;
                     st.top++;
-                    st.data[st.top]=c;
+                    st.data[st.top] = c;
                 } else
                     printf("\n\t除零错误！\n");
                 break;
 
             default:
                 d = 0;
-                while(*postexp >= '0' && *postexp <= '9'){
-                    d = 10*d + *postexp - '0';
+                while (*postexp >= '0' && *postexp <= '9') {
+                    d = 10 * d + *postexp - '0';
                     postexp++;
                 }
                 st.top++;
@@ -206,8 +206,7 @@ float compvalue(char *postexp){
 }
 
 
-
-void MenuStack(){
+void MenuStack() {
     printf("\n                      栈子系统");
     printf("\n =======================================================");
     printf("\n |                1------初始化栈");
@@ -221,16 +220,17 @@ void MenuStack(){
     printf("\n =======================================================");
     printf("\n 请输入菜单号（0-7）");
 }
-main(){
-    int i,n,flag;
+
+main() {
+    int i, n, flag;
     LinkStack *S;
     DataType x;
-    char ch1,ch2,a;
-    char exp[MAXSIZE],postexp[MAXSIZE];
+    char ch1, ch2, a;
+    char exp[MAXSIZE], postexp[MAXSIZE];
     ch1 = 'y';
-    while (ch1 == 'y' || ch1 == 'Y'){
+    while (ch1 == 'y' || ch1 == 'Y') {
         MenuStack();
-        scanf("%c",&ch2);
+        scanf("%c", &ch2);
         getchar();
         switch (ch2) {
             case '1':
@@ -241,7 +241,7 @@ main(){
                 printf("请输入要入栈的元素个数：");
                 scanf("%d", &n);
                 printf("请输入%d个整数进行入栈", n);
-                for (int i = 0; i < n; ++i) {
+                for (i = 0; i < n; ++i) {
                     scanf("%d", &x);
                     S = Push(S, x);
                 }
@@ -251,7 +251,7 @@ main(){
                 printf("请输入要出栈的元素个数：");
                 scanf("%d", &n);
                 printf("出栈的元素为：");
-                for(int i = 0; i < n; ++i) {
+                for (i = 0; i < n; ++i) {
                     S = Pop(S, &x);
                     if (S != NULL) {
                         printf("%5d", x);
@@ -285,11 +285,10 @@ main(){
             default:
                 printf("输入有误，请输入0-5进行选择！");
         }
-        if (ch2 != '0')
-        {
+        if (ch2 != '0') {
             printf("\n按回车键继续，按任意键返回主菜单！\n");
             a = getchar();
-            if (a!='\xA'){
+            if (a != '\xA') {
                 getchar();
                 ch1 = 'n';
             }
