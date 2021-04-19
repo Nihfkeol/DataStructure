@@ -165,7 +165,7 @@ float compvalue(char *postexp){
                 st.top--;
                 c=b-a;
                 st.top++;
-                st.data[st.top];
+                st.data[st.top] = c;
                 break;
             case '*':
                 a=st.data[st.top];
@@ -174,7 +174,7 @@ float compvalue(char *postexp){
                 st.top--;
                 c=b*a;
                 st.top++;
-                st.data[st.top];
+                st.data[st.top] = c;
                 break;
             case '/':
                 a=st.data[st.top];
@@ -259,8 +259,8 @@ main(){
                 }
                 break;
             case '4':
-                if (flag = GetTop(S, &x));
-                printf("当前的栈顶元素为：%d", x);
+                if (flag = GetTop(S, &x))
+                    printf("当前的栈顶元素为：%d", x);
                 break;
             case '5':
                 ShowStack(S);
