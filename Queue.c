@@ -7,26 +7,49 @@
 
 typedef int DataType;
 typedef struct qnode {
-    DataType qnode *next;
+    DataType data;
+    struct qnode *next;
 } LinkListQ;
 
 typedef struct {
     LinkListQ *front, *rear;
 } LinkQueue;
 
-LinkQueue *InitQueue();
+LinkQueue *InitQueue(){
+    LinkQueue *Q;
+    LinkListQ *p;
+    Q = (LinkQueue *)malloc(sizeof(LinkQueue));
+    p = (LinkListQ *)malloc(sizeof(LinkListQ));
+    Q->front = p;
+    Q->rear = p;
+    return Q;
+}
 
-int EmptyQueue(LinkListQ *Q);
+int EmptyQueue(LinkQueue *Q){
+    if (Q->front == Q->rear)
+        return 1;
+    else
+        return 0;
+}
 
-void InQueue(LinkQueue *Q, DataType x);
+void InQueue(LinkQueue *Q, DataType x){
+    LinkListQ *p;
+    p = (LinkListQ *)malloc(sizeof(LinkListQ));
+    p->data = x;
+    p->next = NULL;
+    Q->rear->next = p;
+    Q->rear = p;
+}
 
-int DeQueue(LinkQueue *Q, DataType *x);
+int DeQueue(LinkQueue *Q, DataType *x){
+    LinkListQ *p;
+    if (EmptyQueue(Q)){
+        printf("队空，不能出队元素！");
+        return 0;
+    } else{
+        p = Q -> front -> next;
+        *x = p->data;
 
-int GetFront(LinkQueue *Q, DataType *x);
-
-void ShowQueue(LinkQueue *Q);
-
-void MenuQueue();
 
 
 void main() {
