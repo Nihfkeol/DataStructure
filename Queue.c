@@ -49,10 +49,52 @@ int DeQueue(LinkQueue *Q, DataType *x){
     } else{
         p = Q -> front -> next;
         *x = p->data;
+        Q->front->next=p->next;
+        if(p->next==null){
+            Q->rear=Q->front;
+            free(p);
+            return 1;
+        }
+    }
+
+    int GetFront(LinkQueue *Q, DataType *x){
+        if (EmptyQueue(Q)){
+            printf("队空，无队头元素！");
+            return 0;
+        } else{
+            *x=Q->front->next->data;
+            return 1;
+        }
+    }
+
+    void ShowQueue(LinkQueue *Q){
+        LinkListQ *p=Q->front->next;
+        if (p==null){
+            printf("队列为空，无元素");
+        } else{
+            printf("从队列元素起栈中个元素为：");
+            while (p!=null){
+                printf("%5d",p->data);
+                p=p->next;
+            }
+        }
+    }
+
+    void MenuQueue(){
+        printf("\n               队列子系统");
+        printf("\n===========================================");
+        printf("\n|              1--初始化队列                 |");
+        printf("\n|              2--入队操作                   |");
+        printf("\n|              3--出队操作                   |");
+        printf("\n|             4--求队头元素                  |");
+        printf("\n|             5--显示队中所有元素             |");
+        printf("\n|              0--初始化队列                 |");
+        printf("\n===========================================");
+        printf("\n请输入菜单号（0-5）：")
+    }
 
 
-
-void main() {
+        void main() {
     int i, n, flag;
     LinkQueue *Q;
     DataType x;
