@@ -44,22 +44,23 @@ void InQueue(LinkQueue *Q, DataType x){
 int DeQueue(LinkQueue *Q, DataType *x){
     LinkListQ *p;
     if (EmptyQueue(Q)){
-        printf("é˜Ÿç©ºï¼Œä¸èƒ½å‡ºé˜Ÿå…ƒç´ ï¼");
+        printf("¶Ó¿Õ£¬²»ÄÜ³ö¶ÓÔªËØ£¡");
         return 0;
     } else{
         p = Q -> front -> next;
         *x = p->data;
         Q->front->next=p->next;
-        if(p->next==null){
+        if(p->next==NULL){
             Q->rear=Q->front;
-            free(p);
-            return 1;
         }
+        free(p);
+        return 1;
     }
+}
 
     int GetFront(LinkQueue *Q, DataType *x){
         if (EmptyQueue(Q)){
-            printf("é˜Ÿç©ºï¼Œæ— é˜Ÿå¤´å…ƒç´ ï¼");
+            printf("¶Ó¿Õ£¬ÎŞ¶ÓÍ·ÔªËØ£¡");
             return 0;
         } else{
             *x=Q->front->next->data;
@@ -69,11 +70,11 @@ int DeQueue(LinkQueue *Q, DataType *x){
 
     void ShowQueue(LinkQueue *Q){
         LinkListQ *p=Q->front->next;
-        if (p==null){
-            printf("é˜Ÿåˆ—ä¸ºç©ºï¼Œæ— å…ƒç´ ");
+        if (p==NULL){
+            printf("¶ÓÁĞÎª¿Õ£¬ÎŞÔªËØ");
         } else{
-            printf("ä»é˜Ÿåˆ—å…ƒç´ èµ·æ ˆä¸­ä¸ªå…ƒç´ ä¸ºï¼š");
-            while (p!=null){
+            printf("´Ó¶ÓÍ·ÔªËØÆğ¸÷ÔªËØÎª£º");
+            while (p!=NULL){
                 printf("%5d",p->data);
                 p=p->next;
             }
@@ -81,20 +82,20 @@ int DeQueue(LinkQueue *Q, DataType *x){
     }
 
     void MenuQueue(){
-        printf("\n               é˜Ÿåˆ—å­ç³»ç»Ÿ");
+        printf("\n               ¶ÓÁĞ×ÓÏµÍ³");
         printf("\n===========================================");
-        printf("\n|              1--åˆå§‹åŒ–é˜Ÿåˆ—                 |");
-        printf("\n|              2--å…¥é˜Ÿæ“ä½œ                   |");
-        printf("\n|              3--å‡ºé˜Ÿæ“ä½œ                   |");
-        printf("\n|             4--æ±‚é˜Ÿå¤´å…ƒç´                   |");
-        printf("\n|             5--æ˜¾ç¤ºé˜Ÿä¸­æ‰€æœ‰å…ƒç´              |");
-        printf("\n|              0--åˆå§‹åŒ–é˜Ÿåˆ—                 |");
+        printf("\n|              1--³õÊ¼»¯¶ÓÁĞ                  |");
+        printf("\n|              2--Èë¶Ó²Ù×÷                    |");
+        printf("\n|              3--³ö¶Ó²Ù×÷                    |");
+        printf("\n|              4--Çó¶ÓÍ·ÔªËØ                  |");
+        printf("\n|              5--ÏÔÊ¾¶ÓÖĞËùÓĞÔªËØ             |");
+        printf("\n|              0--·µ»Ø                       |");
         printf("\n===========================================");
-        printf("\nè¯·è¾“å…¥èœå•å·ï¼ˆ0-5ï¼‰ï¼š")
+        printf("\nÇëÊäÈë²Ëµ¥ºÅ£¨0-5£©£º");
     }
 
 
-        void main() {
+    void main() {
     int i, n, flag;
     LinkQueue *Q;
     DataType x;
@@ -107,35 +108,35 @@ int DeQueue(LinkQueue *Q, DataType *x){
         switch (ch2) {
             case '1':
                 Q = InitQueue();
-                printf("é˜Ÿåˆ—çš„åˆå§‹åŒ–å®Œæˆï¼");
+                printf("¶ÓÁĞµÄ³õÊ¼»¯Íê³É£¡");
                 break;
             case '2':
-                printf("è¯·è¾“å…¥è¦å…¥é˜Ÿçš„å…ƒç´ ä¸ªæ•°ï¼š");
+                printf("ÇëÊäÈëÒªÈë¶ÓµÄÔªËØ¸öÊı£º");
                 scanf("%d", &n);
-                printf("è¯·è¾“å…¥%dä¸ªæ•´æ•°è¿›è¡Œå…¥é˜Ÿï¼š", n);
+                printf("ÇëÊäÈë%d¸öÕûÊı½øĞĞÈë¶Ó£º", n);
                 for (i = 0; i < n; ++i) {
                     scanf("%d", &x);
                     InQueue(Q, x);
                 }
-                printf("å…¥é˜Ÿæ“ä½œå®Œæˆ");
+                printf("Èë¶Ó²Ù×÷Íê³É");
                 break;
             case '3':
-                printf("è¯·è¾“å…¥è¦å‡ºé˜Ÿçš„å…ƒç´ ä¸ªæ•°ï¼š");
+                printf("ÇëÊäÈëÒª³ö¶ÓµÄÔªËØ¸öÊı£º");
                 scanf("%d", &n);
-                printf("å‡ºé˜Ÿçš„å…ƒç´ é¡ºåºä¾æ¬¡ä¸ºï¼š");
+                printf("³ö¶ÓµÄÔªËØË³ĞòÒÀ´ÎÎª£º");
                 for (i = 0; i < n; ++i) {
                     flag = DeQueue(Q, &x);
                     printf("%5d", x);
                 }
                 if (flag == 1){
-                    printf("\nå‡ºé˜Ÿæ“ä½œæˆåŠŸ!");
+                    printf("\n³ö¶Ó²Ù×÷³É¹¦!");
                 } else{
-                    printf("\nå‡ºé˜Ÿæ“ä½œå¤±è´¥!");
+                    printf("\n³ö¶Ó²Ù×÷Ê§°Ü!");
                 }
                 break;
             case '4':
                 if ((flag = GetFront(Q, &x)))
-                    printf("å½“å‰çš„å¯¹å¤´å…ƒç´ å€¼ä¸ºï¼š%d",x);
+                    printf("µ±Ç°µÄ¶ÔÍ·ÔªËØÖµÎª£º%d",x);
                 break;
             case '5':
                 ShowQueue(Q);
@@ -144,10 +145,10 @@ int DeQueue(LinkQueue *Q, DataType *x){
                 ch1 = 'n';
                 break;
             default:
-                printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·è¾“å…¥0~4è¿›è¡Œé€‰æ‹©ï¼");
+                printf("ÊäÈëÓĞÎó£¬ÇëÊäÈë0~4½øĞĞÑ¡Ôñ£¡");
         }
         if (ch2 != '0'){
-            printf("\næŒ‰å›è½¦é”®ç»§ç»­ï¼ŒæŒ‰ä»»æ„é”®è¿”å›ä¸»èœå•ï¼\n");
+            printf("\n°´»Ø³µ¼ü¼ÌĞø£¬°´ÈÎÒâ¼ü·µ»ØÖ÷²Ëµ¥£¡\n");
             a = getchar();
             if (a != '\xA'){
                 getchar();
